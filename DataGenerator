@@ -13,8 +13,8 @@ public class DataGenerator {
 		Scanner in = new Scanner(System.in);
 		int rows = in.nextInt();
 		int numberOfItems = 10;
-		int numberOfReviews = 5;
-		int[] usedItems = new int[numberOfReviews];
+		int numberOfReviewsPerUser = 5;
+		int[] usedItems = new int[numberOfReviewsPerUser];
 		double scoreRangeMin = 1.0;
 		double scoreRangeMax = 5.0;		
 		
@@ -32,7 +32,7 @@ public class DataGenerator {
 				Arrays.fill(usedItems, 0);
 				
 				// Choose item to recommend. Do not recommend same item twice for the same user
-				for(int j = 0; j < numberOfReviews; j++) {
+				for(int j = 0; j < numberOfReviewsPerUser; j++) {
 						
 					boolean notUnique = true;
 
