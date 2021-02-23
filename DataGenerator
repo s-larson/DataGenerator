@@ -1,0 +1,45 @@
+import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
+
+public class DataGenerator {
+
+	public static void main(String[] args) {
+		
+		System.out.println("Number of rows: ");
+		Scanner in = new Scanner(System.in);
+		int rows = in.nextInt();
+		int numberOfItems = 10;
+		double scoreRangeMin = 1.0;
+		double scoreRangeMax = 5.0;		
+		
+		try {
+			// Overwrites existing file!!!
+			PrintStream fileStream = new PrintStream(new File("/home/snode/recommenderData/testdata.csv"));
+
+			for(int i = 0; i < rows; i++) {
+				// Parameter 1 = i (user id)
+				// Parameter 2 = item (int between 1 - numberOfItems)
+				// Parameter 3 = recommendation score (double between scoreRangeMin - scoreRangeMax)
+				int id = i;
+				int item = ThreadLocalRandom.current().nextInt(1, numberOfItems+1);	
+				double score = ThreadLocalRandom.current().nextDouble(scoreRangeMin, scoreRangeMax);
+				score = Double.parseDouble(String.format("%.1f", score)); // Set amount of decimals
+				
+				// Save as string and write to file
+				String str = String.valueOf(id) + "," 
+							+ String.valueOf(item) + ","
+							+ String.valueOf(score);
+
+				fileStream.println(str);
+			}
+		} catch (IOException e) {
+			System.out.println("Error writing to file");
+			e.printStackTrace();
+		}
+
+		System.out.println("Data generation completed.");
+	}
+}
